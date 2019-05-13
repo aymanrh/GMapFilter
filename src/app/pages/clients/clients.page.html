@@ -15,32 +15,8 @@
     <ion-grid no-padding>
 
         <ion-row no-padding>
-            <ion-col no-padding [sizeXs]="12" [sizeMd]="3" class="shadow">
-                <!--                <ion-item lines="none">-->
-                <ion-searchbar margin-top debounce="500" placeholder="Search Clients" [(ngModel)]="searchTerm"
-                               (ionChange)="filterClients($event)"
-                               (ionClear)="cancelSearch()" (ionCancel)="emptySearch()">
-
-                </ion-searchbar>
-                <div class="fixed-height">
-                    <ion-item padding-start no-padding margin-bottom *ngFor="let client of filteredClients"
-                              (click)="details(client)">
-                        <ion-avatar slot="start"
-                                    [ngStyle]="{'background-color': client.avatarBackground, 'color': client.avatarText}">
-                            {{client.initials}}
-                        </ion-avatar>
-                        <ion-label>
-                            <h2>{{client.name}}</h2>
-                            <p>{{client.email}}</p>
-                        </ion-label>
-                        <ion-icon slot="end" name="arrow-forward" mode="ios"></ion-icon>
-                    </ion-item>
-                </div>
-
-
-            </ion-col>
-            <ion-col no-padding class="full-screen-mobile">
-                <agm-map (boundsChange)="boundsChange($event)" [latitude]="defaultLat" [longitude]="defaultLng">
+            <ion-col no-padding [sizeXs]="12" [sizeMd]="9">
+                <agm-map  (boundsChange)="boundsChange($event)" [latitude]="defaultLat" [longitude]="defaultLng">
                     <agm-marker *ngFor="let client of  filteredClients"
                                 [latitude]="client.lat" [longitude]="client.lng"
                     >
@@ -67,6 +43,31 @@
                     </agm-marker>
                 </agm-map>
             </ion-col>
+            <ion-col no-padding [sizeXs]="12" [sizeMd]="3" class="shadow">
+                <!--                <ion-item lines="none">-->
+                <ion-searchbar margin-top debounce="500" placeholder="Search Clients" [(ngModel)]="searchTerm"
+                               (ionChange)="filterClients($event)"
+                               (ionClear)="cancelSearch()" (ionCancel)="emptySearch()">
+
+                </ion-searchbar>
+                <div class="fixed-height">
+                    <ion-item padding-start no-padding margin-bottom *ngFor="let client of filteredClients"
+                              (click)="details(client)">
+                        <ion-avatar slot="start"
+                                    [ngStyle]="{'background-color': client.avatarBackground, 'color': client.avatarText}">
+                            {{client.initials}}
+                        </ion-avatar>
+                        <ion-label>
+                            <h2>{{client.name}}</h2>
+                            <p>{{client.email}}</p>
+                        </ion-label>
+                        <ion-icon slot="end" name="arrow-forward" mode="ios"></ion-icon>
+                    </ion-item>
+                </div>
+
+
+            </ion-col>
+
         </ion-row>
     </ion-grid>
 

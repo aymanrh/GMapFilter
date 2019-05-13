@@ -87,7 +87,7 @@ export class ClientsPage implements OnInit {
     }
 
     filterClients(event) {
-        this.filteredClients = this.arrayFilterService.filter(this.clients, event.detail.value, this.columns);
+        this.filteredClients = this.arrayFilterService.filter(this.clients, event.detail.value.toLowerCase(), this.columns);
     }
 
     copied(text: string) {

@@ -10,7 +10,7 @@
 <ion-content>
     <ion-grid>
         <ion-row>
-            <ion-col [sizeXs]="12" [sizeMd]="5">
+            <ion-col [sizeXs]="12" [sizeMd]="9">
 
                 <ion-item>
                     <input id="inputTextID" (keydown.enter)="$event.preventDefault()"
@@ -57,7 +57,7 @@
 
                     <ion-item>
                         <ion-label position="floating" color="primary">Email</ion-label>
-                        <ion-input type="email" formControlName="email"></ion-input>
+                        <ion-input autocomplete="none" type="email" formControlName="email"></ion-input>
                     </ion-item>
                     <ion-item>
                         <ion-label position="floating" color="primary">Phone</ion-label>
