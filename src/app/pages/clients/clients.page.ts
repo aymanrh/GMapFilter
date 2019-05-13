@@ -21,6 +21,7 @@ export class ClientsPage implements OnInit {
     clients: Client[];
     searchTerm: any;
 
+
     columns: TableColumn[] = [
         {prop: 'name'},
         {prop: 'lastName'},
@@ -44,7 +45,11 @@ export class ClientsPage implements OnInit {
             this.clients = value;
         });
     }
+
     boundsChange($event) {
+        if (this.searchTerm) {
+            return;
+        }
         console.log($event.getNorthEast());
         const ne = $event.getNorthEast();
         const sw = $event.getSouthWest();
