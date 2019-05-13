@@ -14,4 +14,5 @@ export interface Client {
     avatarBackground?: string;
     avatarText?: string;
     clientGroup?: string;
+    status?: string;
 }

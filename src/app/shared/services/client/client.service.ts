@@ -3,6 +3,7 @@ import {Client} from '../../../model/client';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {Observable} from 'rxjs';
 import {ClientGroup} from '../../../model/client-group';
+import {ClientStatus} from '../../../model/client-status';
 
 @Injectable({
     providedIn: 'root'
@@ -48,7 +49,13 @@ export class ClientService {
     createCategory(clientGroup: ClientGroup) {
         return this.firestore.collection('clientGroups').doc(clientGroup.name + '').set(clientGroup);
     }
+    getStatus() {
+        return this.firestore.collection<ClientStatus>('clientStatus').valueChanges();
+    }
 
+    createStatus(clientStatus: ClientStatus) {
+        return this.firestore.collection('clientStatus').doc(clientStatus.name + '').set(clientStatus);
+    }
     updateClient(client: Client) {
         console.log(client.id + '');
         return this.firestore.collection('clients').doc(client.id + '').update(client);

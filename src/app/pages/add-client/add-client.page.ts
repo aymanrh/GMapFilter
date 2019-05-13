@@ -10,6 +10,7 @@ import {AlertController} from '@ionic/angular';
 import {UserMessageService} from '../../shared/services/userMessageService/user-message.service';
 import {PreloaderService} from '../../shared/services/utils/preloader.service';
 import {defaultLat, defaultLng} from '../../shared/constant/constants';
+import {ClientStatus} from '../../model/client-status';
 
 
 @Component({
@@ -24,6 +25,7 @@ export class AddClientPage implements OnInit {
     @ViewChild('search')
     public searchElementRef: ElementRef;
     clientGroups: ClientGroup[];
+    clientStatus: ClientStatus[];
     defaultLat = defaultLat;
     defaultLng = defaultLng;
     private geoCoder;
@@ -52,9 +54,13 @@ export class AddClientPage implements OnInit {
         this.clientService.getCategories().subscribe(value => {
             this.clientGroups = value;
         });
+        this.clientService.getStatus().subscribe(value => {
+            this.clientStatus = value;
+        });
         this.clientForm = this.formBuilder.group({
             id: [''],
             clientGroup: ['', Validators.required],
+            clientStatus: ['', Validators.required],
             name: ['', Validators.required],
             lastName: ['', Validators.required],
             email: ['', Validators.required],
@@ -186,5 +192,42 @@ export class AddClientPage implements OnInit {
                 this.clientForm.patchValue(this.client);
             });
         }
+    }
+
+    async addNewStatus() {
+        const alert = await this.alertController.create({
+            header: 'Add Status',
+            inputs: [
+                {
+                    placeholder: 'Status',
+                    name: 'statusName',
+                    type: 'text'
+                }],
+            buttons: [
+                {
+                    text: 'Cancel',
+                    role: 'cancel',
+                    cssClass: 'secondary',
+                    handler: () => {
+                    }
+                }, {
+                    text: 'Add',
+                    handler: (alertData) => {
+                        const createdStatus = {
+                                name: alertData.statusName
+                            }
+                        ;
+                        if (this.clientStatus.find(s => s.name.toLowerCase() === alertData.statusName.toLowerCase())) {
+                            this.userMessageService.showErrorMessage('Already Exist');
+                        } else {
+                            this.clientService.createStatus(createdStatus).then(value => {
+                                this.userMessageService.showSuccessMessage('Status Created ' + createdStatus.name);
+                            });
+                        }
+                    }
+                }
+            ]
+        });
+        await alert.present();
     }
 }
