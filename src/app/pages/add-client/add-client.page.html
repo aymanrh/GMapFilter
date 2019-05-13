@@ -1,0 +1,115 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button [defaultHref]="'clients'"></ion-back-button>
+        </ion-buttons>
+        <ion-title>AddClient</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-grid>
+        <ion-row>
+            <ion-col [sizeXs]="12" [sizeMd]="5">
+
+                <ion-item>
+                    <input id="inputTextID" (keydown.enter)="$event.preventDefault()"
+                           placeholder=" Search Location" autocorrect="off" autocapitalize="off"
+                           spellcheck="off" type="text" #search>
+                </ion-item>
+                <agm-map [latitude]="client.lat ===undefined ? defaultLat: client.lat"
+                         [longitude]="client.lng===undefined ? defaultLng : client.lng">
+                    <agm-marker [latitude]="client.lat===undefined ? defaultLat : client.lat"
+                                [longitude]="client.lng===undefined ? defaultLng : client.lng" [markerDraggable]="true"
+                                (dragEnd)="markerDragEnd($event)"></agm-marker>
+                </agm-map>
+            </ion-col>
+            <ion-col >
+                <form [formGroup]="clientForm" autocomplete="off"  (ngSubmit)="save()">
+                    <ion-row>
+                        <ion-col>
+                            <ion-item>
+                                <ion-select interface="popover" placeholder="Select Group"
+                                            formControlName="clientGroup">
+                                    <ion-select-option slot="start" [value]="clientGroup.name"
+                                                       *ngFor="let clientGroup of clientGroups">{{clientGroup.name}}</ion-select-option>
+                                </ion-select>
+                            </ion-item>
+                        </ion-col>
+                        <ion-col [sizeXs]="1.7" [sizeMd]="1.3">
+                            <ion-button   (click)="addNewGroup()">
+                                <ion-icon name="add"></ion-icon>
+                            </ion-button>
+                        </ion-col>
+                    </ion-row>
+
+
+                    <ion-item>
+                        <ion-label position="floating" color="primary">Name</ion-label>
+                        <ion-input type="text" formControlName="name"></ion-input>
+                    </ion-item>
+
+
+                    <ion-item>
+                        <ion-label position="floating" color="primary">Last Name</ion-label>
+                        <ion-input type="text" formControlName="lastName"></ion-input>
+                    </ion-item>
+
+                    <ion-item>
+                        <ion-label position="floating" color="primary">Email</ion-label>
+                        <ion-input type="email" formControlName="email"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label position="floating" color="primary">Phone</ion-label>
+                        <ion-input type="tel" formControlName="phone"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label position="floating" color="primary">City</ion-label>
+                        <ion-input type="text" formControlName="city"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label position="floating" color="primary">Street</ion-label>
+                        <ion-input type="text" formControlName="street"></ion-input>
+                    </ion-item>
+                    <ion-row>
+                        <ion-col>
+                            <ion-item>
+                                <ion-label position="floating" color="primary">Map Address</ion-label>
+                                <ion-input formControlName="mapAddress" [(ngModel)]="client.mapAddress"></ion-input>
+                            </ion-item>
+                        </ion-col>
+                        <ion-col [sizeXs]="1.7" [sizeMd]="1.3"  >
+                            <ion-button  (click)="setCurrentLocation()">
+                                <ion-icon name="locate"></ion-icon>
+                            </ion-button>
+
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col>
+                            <ion-item>
+                                <ion-label position="floating" color="primary">Latitude</ion-label>
+                                <ion-input formControlName="lat" [(ngModel)]="client.lat"></ion-input>
+                            </ion-item>
+                        </ion-col>
+                        <ion-col>
+                            <ion-item>
+                                <ion-label position="floating" color="primary">Longitude</ion-label>
+                                <ion-input formControlName="lng" [(ngModel)]="client.lng"></ion-input>
+                            </ion-item>
+                        </ion-col>
+                    </ion-row>
+
+
+                    <ion-button margin-top expand="full" [disabled]="!clientForm.valid" type="submit">Save</ion-button>
+
+                </form>
+            </ion-col>
+
+
+        </ion-row>
+
+    </ion-grid>
+
+
+</ion-content>
