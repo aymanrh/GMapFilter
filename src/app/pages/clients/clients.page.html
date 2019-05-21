@@ -16,8 +16,8 @@
 
         <ion-row no-padding>
             <ion-col no-padding [sizeXs]="12" [sizeMd]="9">
-                <agm-map  (boundsChange)="boundsChange($event)" [latitude]="defaultLat" [longitude]="defaultLng">
-                    <agm-marker *ngFor="let client of  filteredClients"
+                <agm-map  (boundsChange)="boundsChange($event)" [mapTypeControl]='true'  [fullscreenControl]='true' [latitude]="defaultLat" [longitude]="defaultLng">
+                    <agm-marker  *ngFor="let client of  filteredClients"
                                 [latitude]="client.lat" [longitude]="client.lng"
                     >
                         <agm-info-window>

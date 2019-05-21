@@ -17,7 +17,7 @@
                            placeholder=" Search Location" autocorrect="off" autocapitalize="off"
                            spellcheck="off" type="text" #search>
                 </ion-item>
-                <agm-map [latitude]="client.lat ===undefined ? defaultLat: client.lat"
+                <agm-map [mapTypeControl]='true'  [fullscreenControl]='true' [latitude]="client.lat ===undefined ? defaultLat: client.lat"
                          [longitude]="client.lng===undefined ? defaultLng : client.lng">
                     <agm-marker [latitude]="client.lat===undefined ? defaultLat : client.lat"
                                 [longitude]="client.lng===undefined ? defaultLng : client.lng" [markerDraggable]="true"
